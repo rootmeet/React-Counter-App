@@ -43,7 +43,7 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Dockerizing app
-`
+``````
 FROM node:16-alpine
 WORKDIR /usr/src/app
 COPY package*.json ./
@@ -52,15 +52,15 @@ COPY . .
 RUN npm run build
 EXPOSE 3000
 CMD ["npm", "start"]
-`
+``````
 ### test single stage docker
-`
+``````
 docker build -t react-app .
 docker run -d -p:3000:3000 react-app:latest
-`
+``````
 
 ## Multistage Dockerizing app
-`
+``````
 FROM node:16-alpine as stage1
 WORKDIR /usr/src/app
 COPY package*.json ./
@@ -72,9 +72,9 @@ FROM nginx:alpine
 COPY --from=stage1 /usr/src/app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
-`
+``````
 ### test multi stage docker
-`
+``````
 docker build -t react-app-multi .
 docker run -d -p:80:80 react-app-multi:latest
-`
+``````
